@@ -108,7 +108,6 @@ class Stack {
 class StackMachine inherits Stack {
 
    z : A2I <- new A2I;
-   io : IO <- new IO;
 
    add() : String {
       {
