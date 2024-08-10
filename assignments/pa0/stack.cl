@@ -13,14 +13,18 @@ class Main inherits IO {
                         stack.push(input)
                      else self fi
                   else self fi;
+                  
                   if input = "e" then
                      if stack.peek() = "+" then out_string(stack.add().concat("\n")) else
                      if stack.peek() = "s" then stack.swap() else
-                     if stack.peek() = "d" then stack.display() else 
-                     self fi fi fi
-                  else self fi;
+                     self fi fi
+                  else if input = "d" then 
+                     out_string(stack.display())
+                  else self fi fi;
+
                   out_string(">");
                   input <- in_string();
+
                }
             pool;
       }
@@ -94,6 +98,10 @@ class Stack {
       l.head()
    };
 
+   isEmpty(): Bool {
+      l.isEmpty()
+   };
+
 };
 
 class StackMachine inherits Stack {
@@ -134,7 +142,19 @@ class StackMachine inherits Stack {
    };
 
    display() : String {
-      ""
+      {
+         let current : List <- l.copy() in {
+            let s : String <- "" in {
+               while not current.isEmpty() loop 
+                  {
+                     s <- s.concat(current.head().concat("\n"));
+                     current <- current.tail();
+                  }
+               pool;
+               s;
+            };
+         };
+      }
    };
 
 };
