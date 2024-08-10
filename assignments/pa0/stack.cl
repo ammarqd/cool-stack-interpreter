@@ -15,13 +15,13 @@ class Main inherits IO {
                   else self fi;
                   
                   if input = "e" then
-                     if not stack.isEmpty() then
+                     if not stack.isEmpty() then -- stop e command from aborting the program when stack is empty
                         if stack.peek() = "+" then stack.add() else
                         if stack.peek() = "s" then stack.swap() else
                         self fi fi
                      else self fi
                   else if input = "d" then 
-                     out_string(stack.display())
+                     out_string(stack.display()) -- returns a string object which is printed with IO.out_string
                   else self fi fi;
 
                   out_string(">");
@@ -107,18 +107,18 @@ class Stack {
 
 class StackMachine inherits Stack {
 
-   z : A2I <- new A2I;
+   conv : A2I <- new A2I;
 
    add() : String {
       {
          self.pop(); -- pop the plus sign
-         let a : Int <- z.a2i(self.peek()) in {
+         let a : Int <- conv.a2i(self.peek()) in {
             self.pop(); -- pop first integer
-            let b : Int <- z.a2i(self.peek()) in {
+            let b : Int <- conv.a2i(self.peek()) in {
                self.pop(); -- pop second integer
-               let c : String <- z.i2a(a + b) in {
+               let c : String <- conv.i2a(a + b) in {
                   self.push(c); -- store the result
-                  c;
+                  c; -- return result
                };
             };
          };
@@ -143,7 +143,7 @@ class StackMachine inherits Stack {
 
    display() : String {
       {
-         let current : List <- l.copy() in {
+         let current : List <- l.copy() in { -- copy internal list for iteration
             let s : String <- "" in {
                while not current.isEmpty() loop 
                   {
