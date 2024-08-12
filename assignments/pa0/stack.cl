@@ -7,13 +7,9 @@ class Main inherits IO {
          out_string(">");
          let input : String <- in_string() in 
             while not input = "x" loop
-               {
-                  if not input = "e" then
-                     if not input = "d" then
-                        stack.push(input)
-                     else self fi
-                  else self fi;
-                  
+               { 
+                  if input = "+" then stack.push(input) else
+                  if input = "s" then stack.push(input) else
                   if input = "e" then
                      if not stack.isEmpty() then -- stop e command from aborting the program when stack is empty
                         if stack.peek() = "+" then stack.add() else
@@ -22,7 +18,10 @@ class Main inherits IO {
                      else self fi
                   else if input = "d" then 
                      out_string(stack.display()) -- returns a string object which is printed with IO.out_string
-                  else self fi fi;
+                  else 
+                     let temp : Int <- stack.conv().a2i(input) in -- check for integer inputs
+                     if temp.type_name() = "Int" then stack.push(input) else
+                  self fi fi fi fi fi;
 
                   out_string(">");
                   input <- in_string();
@@ -108,6 +107,10 @@ class Stack {
 class StackMachine inherits Stack {
 
    conv : A2I <- new A2I;
+
+   conv() : A2I {
+      conv
+   };
 
    add() : String {
       {
