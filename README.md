@@ -1,4 +1,4 @@
-# Cool-Stack-Machine
+# cool-stack-interpreter
 A simple stack machine for the Cool programming language.
 
 The eventual goal is to build a compiler for the Cool programming language by becoming familiar with the syntax.
